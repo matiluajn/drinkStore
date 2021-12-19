@@ -97,15 +97,15 @@ function actualizarCart() {
         cart.forEach((producto, indice) => {
             total = total + producto.precio * producto.cantidad;
             const createCart = document.createElement("div");
-            createCart.className = "producto-carrito";
+            createCart.className = "producto-carrito container card-body";
             createCart.innerHTML = `
-            <img class="car-img" src="${producto.imagen}"/>
-            <div class="product-details">
+            <img class="car-img card-img-top" src="${producto.imagen}"/>
+            <div class="product-details  card-title">
               ${producto.nombre}
             </div>
-            <div class="product-details" > Cantidad: ${producto.cantidad}</div>
-            <div class="product-details"> Precio: $ ${producto.precio}</div>
-            <div class="product-details"> Subtotal: $ ${
+            <div class="product-details card-text" > Cantidad: ${producto.cantidad}</div>
+            <div class="product-details card-text"> Precio: $ ${producto.precio}</div>
+            <div class="product-details card-text"> Subtotal: $ ${
               producto.precio * producto.cantidad
             }</div>
             <button class="btn btn-danger"  id="remove-product" onClick="removeProduct(${indice})">Eliminar producto</button>
@@ -115,7 +115,8 @@ function actualizarCart() {
         // Dibujo el total y lo appendeo en el div capturado y guardado en la variable modalCarrito
         const totalContainer = document.createElement("div");
         totalContainer.className = "total-carrito";
-        totalContainer.innerHTML = `<div class= "total"> TOTAL $ ${total}</div>
+        totalContainer.classList.add("container", "card-body");
+        totalContainer.innerHTML = `<div class= "total card-text"> TOTAL $ ${total}</div>
         <button class= "btn btn-danger finalizar" id="finalizar" onClick="finalizarCompra()"> FINALIZAR COMPRA </button>`;
         openCart.appendChild(totalContainer);
     } else {
@@ -132,11 +133,12 @@ const removeProduct = (indice) => {
 const finalizarCompra = () => {
     const total = document.getElementsByClassName("total")[0].innerHTML;
     openCart.innerHTML = "";
-    const compraFinalizada = `<div class="compra-finalizada"><p class="compra-parrafo"> Genial estas a punto de finalizar la compra, EL   ${total} </p></div>
-  <div class="datos-cliente">
-  <p class="datos-parrafo"> Complete el formulario con sus datos para coordinar la entrega</p>
+    const compraFinalizada = `<div class="compra-finalizada container"><p class="compra-parrafo"> Genial estas a punto de finalizar la compra, EL   ${total} </p></div>
+  <div class="datos-cliente card-body">
+  <p class="datos-parrafo card-text"> Complete el formulario con sus datos para coordinar la entrega</p>
   <button class= "btn btn-danger formulario" id="formulario" onClick="dibujarFormu()"> FORMULARIO </button>
   </div>`;
+
     openCart.innerHTML = compraFinalizada;
 };
 
@@ -173,7 +175,7 @@ const dibujarFormu = () => {
 const mostrarMensaje = () => {
     const nombreCliente = document.getElementById("nombre").value;
     const domicilioCliente = document.getElementById("domicilio").value;
-    debugger;
+
     openCart.innerHTML = "";
     let mensaje = `<div class="mensaje-final"> Muchas Gracias ${nombreCliente} por tu compra! en el transcurso de 1hs recibiras tu pedido en ${domicilioCliente} </div>`;
     openCart.innerHTML = mensaje;
